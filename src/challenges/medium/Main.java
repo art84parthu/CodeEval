@@ -11,7 +11,7 @@ public class Main{
 	        BufferedReader in = new BufferedReader(new FileReader(file));
 	        String line;
 	        while ((line = in.readLine()) != null) {
-	            String[] lineArray = line.split("\\s");
+	            String[] lineArray = line.trim().split("\\s");
 	            boolean badInput = false;
 	            if (lineArray.length > 0) {
 	               SinglyLinkedList list = new SinglyLinkedList();
