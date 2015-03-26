@@ -25,6 +25,11 @@ public class Main{
 	            	   }
 	            	   try{
 	            		   m = Integer.parseInt(s);
+	            		   if(i < (lineArray.length-1)){
+	            			   System.out.println("Input does not match the specifications. skipping.");
+		            		   badInput = true;
+		            		   continue;
+	            		   }
 	            		   break;
 	            	   }catch(NumberFormatException e){
 	            		   list.insertElement(i, s.charAt(0));
