@@ -19,15 +19,15 @@ public class Main{
 	               for(int i=0; i<lineArray.length; i++){
 	            	   String s = lineArray[i];
 	            	   if(s.length() > 1){
-	            		   System.out.println("Input does not match the specifications. skipping.");
 	            		   badInput = true;
+	            		   System.out.println("Bad input. Skipping");
 	            		   continue;
 	            	   }
 	            	   try{
 	            		   m = Integer.parseInt(s);
 	            		   if(i < (lineArray.length-1)){
-	            			   System.out.println("Input does not match the specifications. skipping.");
 		            		   badInput = true;
+		            		   System.out.println("Bad input. Skipping");
 		            		   continue;
 	            		   }
 	            		   break;
@@ -38,7 +38,7 @@ public class Main{
 	               if(!badInput){
 	            	   char c = SinglyLinkedList.mthFromLast(m, list.getHead());
 	            	   if(c == '0'){
-	            		   System.out.println("m greater than number of elements. So skipping.");
+	            		   System.out.println("M > len. Skipping");
 	            	   }else{
 	            		   System.out.println(c);
 	            	   }
@@ -48,7 +48,7 @@ public class Main{
 	        in.close();
 	    } catch (IOException e) {
 	        System.out.println("File Read Error: " + e.getMessage());
-	    }               
+	    }
 	}
 }
 	class Node {
