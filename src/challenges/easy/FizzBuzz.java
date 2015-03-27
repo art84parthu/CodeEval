@@ -15,13 +15,13 @@ public class FizzBuzz {
 	            	int Y = Integer.parseInt(lineArray[1]);
 	            	int N = Integer.parseInt(lineArray[2]);
 	            	
-	            	System.out.println();
 	            	int i=1;
 	            	for(; i<N; i++){
 	            		printFizzBuzz(i, X, Y);
 	            		System.out.print(" ");
 	            	}
 	            	printFizzBuzz(i, X, Y);
+	            	System.out.println();
 	            } 
 	        }
 	        in.close();
@@ -31,11 +31,11 @@ public class FizzBuzz {
 	}
 	
 	private static void printFizzBuzz(int i, int X, int Y){
-		if(i / X == 0 && i / Y == 0){
+		if(i % X == 0 && i % Y == 0){
 			System.out.print("FB");
-		}else if(i / X == 0){
+		}else if(i % X == 0){
 			System.out.print("F");
-		}else if(i / Y == 0){
+		}else if(i % Y == 0){
 			System.out.print("B");
 		}else{
 			System.out.print(i);
