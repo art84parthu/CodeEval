@@ -20,7 +20,7 @@ public class LongestCommonSubSequence {
 	            if(line.length() > 0){
 	            	String[] sequences = line.split(";");
 	            	if(sequences.length == 2){
-	            		HashMap<Character, Integer> presenceMap = new HashMap<Character, Integer>();
+	            		HashMap<Character, LinkedList<Integer>> presenceMap = new HashMap<Character, LinkedList<Integer>>();
 	            		int mapIndex = 0;
 	            		if(sequences[0].length() > sequences[1].length()){
 	            			mapIndex = 1;
@@ -69,23 +69,34 @@ public class LongestCommonSubSequence {
 	    }
 
 	private static void populateMap(int mapIndex, String[] sequences,
-			HashMap<Character, Integer> presenceMap, int[] seqIndices) {
+			HashMap<Character, LinkedList<Integer>> presenceMap, int[] seqIndices) {
 		String seq = sequences[mapIndex];
 		for(int i=0; i<seq.length(); i++){
-			presenceMap.put(seq.charAt(i), i);
+			LinkedList<Integer> indexList = presenceMap.get(seq.charAt(i));
+			if(indexList == null){
+				indexList = new LinkedList<Integer>();
+			}
+			indexList.addLast(i);
+			presenceMap.put(seq.charAt(i), indexList);
 			seqIndices[i] = -1;
 		}
 		int index = Math.abs(mapIndex-1);
 		seq = sequences[index];//Get the other string
 		for(int i=0; i<seq.length(); i++){
-			char c = seq.charAt(i);
-			Integer i1 = presenceMap.get(c);
-			if( i1 != null){
-				seqIndices[i1] = i;
+			LinkedList<Integer> indexList = presenceMap.get(seq.charAt(i));
+			if(indexList != null){
+				for(int a=0; a < indexList.size(); a++){
+					int b = indexList.get(a);
+					seqIndices[b] = i;
+				}
 			}
 		}
 	}
 	
+	
+	private static void updateDuplicateIndices(){
+		
+	}
 	
 	
 }
