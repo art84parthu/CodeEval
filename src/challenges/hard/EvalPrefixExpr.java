@@ -31,12 +31,23 @@ public class EvalPrefixExpr {
 				 if(myStack.size() >= 2){
 					 int leftOperand = myStack.pop();
 					 int rightOperand = myStack.pop();
+					 int result;
 					 switch(s){
 					 case "+":
-						 myStack.push(leftOperand + rightOperand);
+						 if(leftOperand >= Integer.MAX_VALUE || rightOperand >= Integer.MAX_VALUE){
+							 result = 0;
+						 }else{
+							 result = leftOperand + rightOperand;
+						 }
+						 myStack.push(result);
 						 break;
 					 case "*":
-						 myStack.push(leftOperand * rightOperand);
+						 if((leftOperand >= Integer.MAX_VALUE && rightOperand > 1 ) || (rightOperand >= Integer.MAX_VALUE && leftOperand > 1)){
+							 result = 0;
+						 }else{
+							 result = leftOperand * rightOperand;
+						 }
+						 myStack.push(result);
 						 break;
 					 case "/":
 						 if(rightOperand > 0){
