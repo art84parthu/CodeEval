@@ -26,46 +26,34 @@ public class EvalPrefixExpr {
 		 LinkedList<Integer> myStack = new LinkedList<Integer>();
 		 
 		 for(int i=len-1; i>=0; i--){
-			 String s = expr[i];
+			 String s = expr[i].trim();
 			 if(s.equals("+") || s.equals("*") || s.equals("/")){
 				 if(myStack.size() >= 2){
 					 int leftOperand = myStack.pop();
 					 int rightOperand = myStack.pop();
-					 int result;
+					 int result = 0;
 					 switch(s){
 					 case "+":
-						 if(leftOperand >= Integer.MAX_VALUE || rightOperand >= Integer.MAX_VALUE){
-							 result = 0;
-						 }else{
-							 result = leftOperand + rightOperand;
-						 }
-						 myStack.push(result);
+						 result = leftOperand + rightOperand;
 						 break;
 					 case "*":
-						 if((leftOperand >= Integer.MAX_VALUE && rightOperand > 1 ) || (rightOperand >= Integer.MAX_VALUE && leftOperand > 1)){
-							 result = 0;
-						 }else{
-							 result = leftOperand * rightOperand;
-						 }
-						 myStack.push(result);
+						 result = leftOperand * rightOperand;
 						 break;
 					 case "/":
-						 if(rightOperand > 0){
-							 myStack.push(leftOperand / rightOperand);
-						 }else{
-							 myStack.push(0);
-						 }
+						 result = leftOperand / rightOperand;
 						 break;
 					 }
+					 result = result < 0 ? 0 : result;
+					 myStack.push(result);
 				 }else{
-					 return "-1";
+					 return "0";
 				 }
 			 }else{
 				 try{
 					 int number = Integer.parseInt(s);
 					 myStack.push(number);
 				 }catch(NumberFormatException e){
-					 return "-1";
+					 return "0";
 				 }
 			 }
 		 }
