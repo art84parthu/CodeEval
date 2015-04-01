@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.Stack;
 
 public class EvalPrefixExpr {
 	 public static void main (String[] args) throws IOException {
@@ -21,43 +21,37 @@ public class EvalPrefixExpr {
 	        buffer.close();
 	 }
 	 
-	 private static String evalPrefixExpr(String[] expr){
+	 private static int evalPrefixExpr(String[] expr){
 		 int len = expr.length;
-		 LinkedList<Integer> myStack = new LinkedList<Integer>();
+		 Stack<String> myStack = new Stack<String>();
 		 
 		 for(int i=len-1; i>=0; i--){
 			 String s = expr[i].trim();
-			 if(s.equals("+") || s.equals("*") || s.equals("/")){
+			 
+			 if(s.equals("*") || s.equals("/") || s.equals("+")){
+				 double result = 0;
 				 if(myStack.size() >= 2){
-					 int leftOperand = myStack.pop();
-					 int rightOperand = myStack.pop();
-					 int result = 0;
+					 double leftOperand = Double.valueOf(myStack.pop());
+					 double rightOperand = Double.valueOf(myStack.pop());
 					 switch(s){
 					 case "+":
-						 result = leftOperand + rightOperand;
-						 break;
+						 	result = leftOperand + rightOperand;
+						 	break;
 					 case "*":
-						 result = leftOperand * rightOperand;
-						 break;
+						 	result = leftOperand * rightOperand;
+						 	break;
 					 case "/":
-						 result = leftOperand / rightOperand;
-						 break;
+						 	if(rightOperand > 0){
+						 		result = leftOperand / rightOperand;
+						 	}
+						 	break;
 					 }
-					 result = result < 0 ? 0 : result;
-					 myStack.push(result);
-				 }else{
-					 return "0";
+					 myStack.push(String.valueOf(result));
 				 }
 			 }else{
-				 try{
-					 int number = Integer.parseInt(s);
-					 myStack.push(number);
-				 }catch(NumberFormatException e){
-					 return "0";
-				 }
+				 myStack.push(s);
 			 }
 		 }
-		 
-		 return myStack.pop().toString();
+		 return Double.valueOf(myStack.pop()).intValue();
 	 }
 }
